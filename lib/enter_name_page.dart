@@ -1,3 +1,4 @@
+import 'package:flagquizapp/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:keyboard_dismisser/keyboard_dismisser.dart';
 
@@ -9,6 +10,7 @@ class EnterNamePage extends StatefulWidget {
 }
 
 class _EnterNamePageState extends State<EnterNamePage> {
+  String name = '';
   @override
   Widget build(BuildContext context) {
     return KeyboardDismisser(
@@ -86,7 +88,9 @@ class _EnterNamePageState extends State<EnterNamePage> {
                       minimumSize: const Size(double.infinity, 46),
                       elevation: 0,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (_) => HomePage()));
+                    },
                     child: Text(
                       'Start'.toUpperCase(),
                       style: const TextStyle(
