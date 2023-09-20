@@ -3,10 +3,10 @@ import 'package:flagquizapp/questions.dart';
 import 'package:flutter/material.dart';
 
 class FinisPage extends StatelessWidget {
-  String name;
-  int score;
+  final String name;
+  final int score;
 
-  FinisPage({super.key, required this.score, required this.name});
+  const FinisPage({super.key, required this.score, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class FinisPage extends StatelessWidget {
             ),
             const SizedBox(height: 100,),
             Image.asset(
-              'assets/images/2.png',
+              'assets/images/ic.png',
               width: 350,
               height: 300,
             ),
