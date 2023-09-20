@@ -1,3 +1,5 @@
+import 'package:flagquizapp/finish_page.dart';
+
 import 'questions.dart';
 import 'variant_buttton.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = -1;
   int _trueIndex = -1;
   int _falseIndex = -1;
+  int score = 0;
 
   void _checkAnswer() {
     if (questions[_questionIndex].variantTrue ==
@@ -42,6 +45,7 @@ class _HomePageState extends State<HomePage> {
         _falseIndex = _selectedIndex;
       });
     }
+    score++;
   }
 
   @override
@@ -159,12 +163,16 @@ class _HomePageState extends State<HomePage> {
                       _trueIndex = -1;
                       _falseIndex = -1;
                     });
+                    if (_questionIndex == questions.length){
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => FinisPage(score: score, name: widget.name)));
+                    }
                     return;
                   }
 
                   if (_selectedIndex < 0) {
                     return;
                   }
+
                   _checkAnswer();
                 },
                 child: Text(
