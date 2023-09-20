@@ -1,6 +1,5 @@
-import 'package:flagquizapp/finish_page.dart';
-
 import 'questions.dart';
+import 'finish_page.dart';
 import 'variant_buttton.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = -1;
   int _trueIndex = -1;
   int _falseIndex = -1;
-  int score = 0;
+  int _trueCount = 0;
 
   void _checkAnswer() {
     if (questions[_questionIndex].variantTrue ==
@@ -45,7 +44,9 @@ class _HomePageState extends State<HomePage> {
         _falseIndex = _selectedIndex;
       });
     }
-    score++;
+    if (_trueIndex == _selectedIndex) {
+      _trueCount++;
+    }
   }
 
   @override
@@ -150,35 +151,46 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(bottom: 20.0),
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: (_selectedIndex != -1 && _trueIndex != -1)
+                  backgroundColor: (_questionIndex == questions.length - 1 &&
+                      ((_selectedIndex != -1 && _trueIndex != -1)))
                       ? Colors.indigo
-                      : Colors.green,
+                      : (_selectedIndex != -1 && _trueIndex != -1
+                      ? Colors.indigo
+                      : Colors.green),
                   minimumSize: const Size.fromHeight(56),
                 ),
                 onPressed: () {
                   if (_selectedIndex != -1 && _trueIndex != -1) {
+                    if (_questionIndex == questions.length - 1) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => FinisPage(score: _trueCount,name: widget.name,),
+                        ),
+                      );
+                      return;
+                    }
                     setState(() {
                       _questionIndex++;
                       _selectedIndex = -1;
                       _trueIndex = -1;
                       _falseIndex = -1;
                     });
-                    if (_questionIndex == questions.length){
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => FinisPage(score: score, name: widget.name)));
-                    }
                     return;
                   }
 
                   if (_selectedIndex < 0) {
                     return;
                   }
-
                   _checkAnswer();
                 },
                 child: Text(
-                  (_selectedIndex != -1 && _trueIndex != -1)
+                  (_questionIndex == questions.length - 1 &&
+                      ((_selectedIndex != -1 && _trueIndex != -1)))
+                      ? 'Finish'
+                      : ((_selectedIndex != -1 && _trueIndex != -1)
                       ? 'Go to the next question'
-                      : 'Submit',
+                      : 'Submit'),
                   style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,

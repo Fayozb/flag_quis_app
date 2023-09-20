@@ -37,7 +37,7 @@ class FinisPage extends StatelessWidget {
               width: 350,
               height: 300,
             ),
-            SizedBox(height: 30,),
+            const SizedBox(height: 30,),
             const Text(
               'Hey, Congratulations!',
               style: TextStyle(
@@ -74,7 +74,7 @@ class FinisPage extends StatelessWidget {
                   elevation: 0,
                 ),
                 onPressed: () {
-                  const EnterNamePage();
+                   Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const EnterNamePage()));
                 },
                 child: Text(
                   'Finish'.toUpperCase(),
